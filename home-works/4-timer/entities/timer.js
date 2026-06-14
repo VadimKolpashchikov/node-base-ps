@@ -11,12 +11,20 @@ export default class Timer {
   start() {
     this.#logger.log('Timer Start');
     this.#logger.log(this.#formattedValue());
+    if (this.#value <= 0) {
+      this.end();
+      return;
+    }
 
     this.#interval = setInterval(() => {
       this.#value -= 1000;
-      this.#logger.log(this.#formattedValue());
+      if (this.#value >= 0) {
+        this.#logger.log(this.#formattedValue());
+      }
 
-      if (this.#value <= 0) this.end();
+      if (this.#value <= 0) {
+        this.end();
+      }
     }, 1000);
   }
 
