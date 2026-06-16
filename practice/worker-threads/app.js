@@ -8,17 +8,44 @@
 //     console.log(performance.now() - start);
 //   });
 // }
+// -----------------------------
+// import https from 'https';
 
-import https from 'https';
+// const start = performance.now();
 
-const start = performance.now();
+// for (let i = 0; i < 50; i += 1) {
+//   https.get('https://yandex.ru', (res) => {
+//     res.on('data', () => {});
 
-for (let i = 0; i < 50; i += 1) {
-  https.get('https://yandex.ru', (res) => {
-    res.on('data', () => {});
+//     res.on('end', () => {
+//       console.log(performance.now() - start);
+//     });
+//   });
+// }
+// -----------------------------
+import factorial from './factorial.js';
 
-    res.on('end', () => {
-      console.log(performance.now() - start);
-    });
-  });
-}
+const compute = (array) => {
+  const arr = [];
+  for (let i = 0; i < 100000000; i += 1) {
+    arr.push(i * i);
+  }
+  return array.map((el) => factorial(el));
+};
+
+const main = () => {
+  performance.mark('start');
+  const result = [
+    compute([20, 39, 34, 59, 48]),
+    compute([20, 39, 34, 59, 48]),
+    compute([20, 39, 34, 59, 48]),
+    compute([20, 39, 34, 59, 48]),
+  ];
+  console.log(result);
+
+  performance.mark('end');
+  performance.measure('main', 'start', 'end');
+  console.log(performance.getEntriesByName('main').pop());
+};
+
+main();
