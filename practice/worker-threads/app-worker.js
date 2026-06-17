@@ -10,7 +10,7 @@ const compute = (array) => {
 
     worker.on('message', (message) => {
       id = worker.threadId;
-      console.log(worker.threadId);
+      console.log(`${worker.threadId} send message`);
       resolve(message);
     });
 
@@ -26,19 +26,27 @@ const compute = (array) => {
 };
 
 const main = async () => {
-  performance.mark('start');
-  const result = await Promise.all([
-    compute([20, 39, 34, 59, 48]),
-    compute([20, 39, 34, 59, 48]),
-    compute([20, 39, 34, 59, 48]),
-    compute([20, 39, 34, 59, 48]),
-  ]);
+  try {
+    performance.mark('start');
+    const result = await Promise.all([
+      compute([20, 39, 34, 59, 48]),
+      compute([20, 39, 34, 59, 48]),
+      compute([20, 39, 34, 59, 48]),
+      compute([20, 39, 34, 59, 48]),
+    ]);
 
-  console.log(result);
+    console.log(result);
 
-  performance.mark('end');
-  performance.measure('main', 'start', 'end');
-  console.log(performance.getEntriesByName('main').pop());
+    performance.mark('end');
+    performance.measure('main', 'start', 'end');
+    console.log(performance.getEntriesByName('main').pop());
+  } catch (e) {
+    console.log(e);
+  }
 };
+
+setTimeout(() => {
+  console.log('Timeout');
+}, 500);
 
 main();
