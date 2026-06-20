@@ -1,8 +1,10 @@
 import { Worker } from 'worker_threads';
 import perfHooks from 'perf_hooks';
 import { remainder, chunkArray } from './utils.js';
+import { cpus } from 'os';
 
-process.env.UV_THREADPOOL_SIZE = 6;
+process.env.UV_THREADPOOL_SIZE = cpus().length;
+
 const remainderPerf = perfHooks.performance.timerify(remainder);
 const mainPerf = perfHooks.performance.timerify(main);
 
@@ -36,7 +38,7 @@ async function main(arrays) {
 
 const result = remainderPerf(numbersData, 3);
 const resultWithWorkers = await mainPerf(
-  chunkArray(numbersData, process.env.UV_THREADPOOL_SIZE),
+  chunkArray(numbersData, cpus().length),
 );
 
 console.log('result', result);
