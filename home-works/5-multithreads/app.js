@@ -34,5 +34,10 @@ async function main(arrays) {
   return result.reduce((a, n) => a + n, 0);
 }
 
-remainderPerf(numbersData, 3);
-mainPerf(chunkArray(numbersData, process.env.UV_THREADPOOL_SIZE));
+const result = remainderPerf(numbersData, 3);
+const resultWithWorkers = await mainPerf(
+  chunkArray(numbersData, process.env.UV_THREADPOOL_SIZE),
+);
+
+console.log('result', result);
+console.log('resultWithWorkers', resultWithWorkers);

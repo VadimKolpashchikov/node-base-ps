@@ -7,7 +7,8 @@ export function remainder(array, divider = 1) {
   }, 0);
 }
 
-export function chunkArray(array, size) {
+export function chunkArray(array, chunksCount) {
+  const size = Math.ceil(array.length / chunksCount);
   const result = [];
   for (let i = 0; i < array.length; i += size) {
     result.push(array.slice(i, i + size));
