@@ -1,0 +1,19 @@
+{
+  "name": "timer-notifications",
+  "version": "1.0.0",
+  "description": "timer with notifications",
+  "keywords": [
+    "timer",
+    "notification"
+  ],
+  "license": "ISC",
+  "author": "Vadim Kolpashchikov",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "node-notifier": "^10.0.1"
+  }
+}
